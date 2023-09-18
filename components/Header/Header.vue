@@ -1,25 +1,30 @@
-
 <template>
   <div class="layout">
-    <h1 class="logo">LOGO</h1>
+    <div class="img_box">
+      <NuxtLink to="/"><img src="/logo.png" alt=""></NuxtLink>
+    </div>
     <HeaderContent class="flex1"></HeaderContent>
   </div>
 </template>
-<style>
-* {
-  box-sizing: border-box;
-}
+<style scoped>
 .layout {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px;
+  max-width: 1600px;
+  margin:0 auto;
   display: flex;
   justify-content: space-between;
-  /* align-items:center */
+  gap:5px;
+  /* position:fixed; */
 }
 .flex1 {
   flex: 1;
 }
-.logo {
-  /* margin:2px */
+.img_box{
+  height:80%;
+  weight:80%;
+  display:block;
+}
+.img_box img{
+  max-width: 50%; 
+  max-height: 50%; 
 }
 </style>

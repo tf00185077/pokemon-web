@@ -37,7 +37,7 @@ console.log(routeName.value);
     >
   </ul>
 </template>
-<style>
+<style scoped>
 ul {
   display: flex;
   list-style: none;
@@ -48,7 +48,7 @@ ul {
 a {
   position: relative;
   width: 80%;
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,8 +56,8 @@ a {
   cursor: pointer;
   text-decoration: none;
   font-weight: 800;
-  color: rgba(255, 255, 255);
 }
+
 a::after {
   content: "";
   position: absolute;
@@ -66,38 +66,68 @@ a::after {
   display: block;
   width: 100%;
   height: 5%;
-  transition: height 0.3s;
+  transition:0.3s;
   z-index: -1;
   border-radius: 5px 5px 0 0;
 }
-a.active::after {
-  height: 100%;
-}
 a:hover::after {
-  height: 100%;
+    height: 100%;
+}
+a:nth-child(1){
+    color:#03a9f4;
 }
 a:nth-child(1)::after {
-  background-color: rgba(30, 129, 250, 0.864);
+    background-color: #03a9f4;
+}
+a:nth-child(2){
+    color:#ff9600;
 }
 a:nth-child(2)::after {
-  background-color: rgba(255, 182, 87, 0.864);
+    background-color: #ff9600;
+}
+a:nth-child(3){
+    color:#4caf50;
 }
 a:nth-child(3)::after {
-  background-color: rgb(34, 203, 0);
+    background-color: #4caf50;
+}
+a:nth-child(4){
+    color:#9c27b0;
 }
 a:nth-child(4)::after {
-  background-color: rgba(175, 6, 254, 0.864);
+    background-color: #9c27b0;
+}
+a:nth-child(5){
+    color:#f44336;
 }
 a:nth-child(5)::after {
-  background-color: rgba(228, 51, 51, 0.864);
+    background-color: #f44336;
+}
+a:nth-child(6){
+    color:#795548;
 }
 a:nth-child(6)::after {
-  background-color: rgba(116, 50, 50, 0.864);
+    background-color: #795548;
+}
+a:nth-child(7){
+    color: #3f51b5;
 }
 a:nth-child(7)::after {
-  background-color: rgb(47, 32, 143, 0.3);
+    background-color: #3f51b5;
+}
+a:nth-child(8){
+    color:rgba(255, 0, 170, 0.3);
 }
 a:nth-child(8)::after {
-  background-color: rgba(255, 0, 170, 0.3);
+    background-color: rgba(255, 0, 170, 0.3);
+}
+a:hover{
+    color:white
+}
+a.active{
+    color:white
+}
+a.active::after {
+  height: 100%;
 }
 </style>
