@@ -1,13 +1,21 @@
+<script setup>
+const route = useRoute()
+const routeName = ref(route.name)
+watch(() => route.name, (newRouteName, oldRouteName) => {
+  routeName.value = newRouteName; // 更新 routeName 的值
+});
+console.log(routeName.value)
+</script>
 <template>
     <ul class="layout">
-        <li><a>電視動畫系列</a></li>
-        <li>電影</li>
-        <li>商品</li>
-        <li>應用程式</li>
-        <li>遊戲</li>
-        <li>活動</li>
-        <li>卡牌遊戲</li>
-        <li>寶可夢圖鑑</li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">電視動畫系列</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">電影</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">商品</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">應用程式</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">"遊戲</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">活動</NuxtLink></li>
+        <li :class="{'active':routeName==''}"><NuxtLink to="/">卡牌遊戲</NuxtLink></li>
+        <li :class="{'active':routeName=='pokedex'}"><NuxtLink to="/pokedex">寶可夢圖鑑</NuxtLink></li>
     </ul>
 </template>
 <style>
@@ -40,6 +48,9 @@ li::after{
     transition: height 0.3s;
     z-index:-1;
     border-radius:5px 5px 0 0
+}
+li.active::after{
+    height:100%
 }
 li:hover::after{
     height:100%;
