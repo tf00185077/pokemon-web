@@ -20,7 +20,7 @@
 }
 .img_box{
   height:80%;
-  weight:80%;
+  width:80%;
   display:block;
 }
 .img_box img{
