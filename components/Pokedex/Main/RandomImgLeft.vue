@@ -20,7 +20,7 @@
     position:absolute;
     background-image:url("/random_bg.png");
     background-size:cover;
-    animation: fadeIn 2s ease-in-out forwards;
+    animation: fadeIn 3s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {

@@ -11,6 +11,7 @@
 <style scoped>
 .header-layout{
   background: white;
+  /* margin-bottom:100px; */
 }
 .layout {
   max-width: 1200px;
