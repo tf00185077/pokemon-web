@@ -1,6 +1,7 @@
 <template>
-    <div class="layout">
-        <span>Pokedex</span>
+    <div class="index-layout">
+        <PokedexMain></PokedexMain>
+        <div>123</div>
     </div>
 </template>
 <style scoped>
@@ -8,13 +9,14 @@
    box-sizing: border-box;
    color:white;
 }
-.layout{
-    margin:0;
-    background-image: url("/list_bg.jpg");
+.index-layout{
+    margin:0 auto;
+    background-image: url("/list_top_bg.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
+    background-size: contain;
+    background-position: top;
     height:100vh;
-    width:100%
+    max-width:1200px;
+    position:relative;
 }
 </style>

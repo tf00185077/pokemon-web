@@ -12,7 +12,7 @@ console.log(routeName.value);
 <template>
   <ul class="layout">
     <NuxtLink to="/" :class="{ active: routeName == '' }"
-      ><li>電視動畫系列</li></NuxtLink
+      ><li>動畫系列</li></NuxtLink
     >
     <NuxtLink to="/" :class="{ active: routeName == '' }"
       ><li>電影</li></NuxtLink
@@ -33,7 +33,7 @@ console.log(routeName.value);
       ><li>卡牌遊戲</li></NuxtLink
     >
     <NuxtLink to="/pokedex" :class="{ active: routeName == 'pokedex' }"
-      ><li>寶可夢圖鑑</li></NuxtLink
+      ><li>圖鑑</li></NuxtLink
     >
   </ul>
 </template>
@@ -48,7 +48,6 @@ ul {
 a {
   position: relative;
   width: 80%;
-  /* height: 100%; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,6 +55,7 @@ a {
   cursor: pointer;
   text-decoration: none;
   font-weight: 800;
+  padding:20px;
 }
 
 a::after {
