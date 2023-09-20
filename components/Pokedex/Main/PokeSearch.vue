@@ -1,6 +1,6 @@
 <template>
-    <div class="notDone search_layout">
-        <P class="use-name-search">使用名稱或圖鑑編號搜索</P>
+    <div class="  search_layout">
+        <p class="use-name-search">使用名稱或圖鑑編號搜索</p>
         <div class="search-input-layout">
             <div class="search-input">
                 <input placeholder="123456" class="number-name-input"/>

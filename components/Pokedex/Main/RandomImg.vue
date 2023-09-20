@@ -1,7 +1,14 @@
+<script setup>
+const data = defineProps(['data'])
+const dataDetail = data.data
+// console.log(dataDetail)
+const page = `/pokedex/${dataDetail.num}`
+const pic = dataDetail.image
+</script>
 <template>
     <div class="random_image_card">
-        <NuxtLink to="/pokedex">
-            <img src="https://tw.portal-pokemon.com/play/resources/pokedex/img/pm/cf47f9fac4ed3037ff2a8ea83204e32aff8fb5f3.png">
+        <NuxtLink :to="page">
+            <img :src="pic">
         </NuxtLink>
     </div>
 </template>

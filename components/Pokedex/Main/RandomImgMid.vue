@@ -1,6 +1,10 @@
+<script setup>
+    const datas = defineProps(["toMiddatas"])
+    // console.log(datas.toMiddatas)
+</script>
 <template>
-    <div class="mid_layout">
-        <PokedexMainRandomImg class="mid_img"/>
+    <div v-if="datas.toMiddatas" class="mid_layout">
+        <PokedexMainRandomImg v-for="(value,index) in datas.toMiddatas" :data="value" class="mid_img"/>
     </div>
 </template>
 <style scoped>
@@ -14,7 +18,7 @@
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center center;
-    animation: fadeIn 1s ease-in-out forwards;
+    animation: fadeIn 5s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {

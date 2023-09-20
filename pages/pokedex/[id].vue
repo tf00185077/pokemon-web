@@ -1,22 +1,14 @@
-<script setup>
-const props = defineProps(['data'])
-// console.log(props.data)
-</script>
 <template>
-    <div class="  main-head">
+        <div class="  main-head">
         <NuxtLink to="/pokedex">
             <span>寶可夢圖鑑</span>
         </NuxtLink>
     </div>
-    <PokedexMainRandomImgLayout :data="props.data"></PokedexMainRandomImgLayout><!--隨機顯示圖片-->
-    <PokedexMainPokeSearch :data="props.data"></PokedexMainPokeSearch>
+    <h1 class=" "> </h1>
 </template>
-<style scoped>
-*{
-    color:white;
-}
-a{
-    text-decoration:none;
+<style>
+h1{
+    color:white
 }
 .main-head{
     height:100px;

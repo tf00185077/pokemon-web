@@ -7,7 +7,7 @@ watch(
     routeName.value = newRouteName; // 更新 routeName 的值
   }
 );
-console.log(routeName.value);
+// console.log(routeName.value);
 </script>
 <template>
   <ul class="layout">

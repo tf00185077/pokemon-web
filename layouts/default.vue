@@ -2,6 +2,7 @@
     <div>
         <Header class="header"></Header>
         <slot></slot>
+        <Footer></Footer>
     </div>
 </template>
 <style scoped>

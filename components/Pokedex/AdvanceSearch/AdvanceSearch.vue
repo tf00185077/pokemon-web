@@ -1,9 +1,9 @@
 <template>
-    <div class="advance-search-layout notDone">
-        <div class="advance-search-choose notDone">
+    <div class="advance-search-layout">
+        <div class="advance-search-choose">
             <p>進階搜索</p>
         </div>
-        <div class="range-by-number notDone">
+        <div class="range-by-number">
             <p>由圖鑑編號排列</p>
         </div>
     </div>

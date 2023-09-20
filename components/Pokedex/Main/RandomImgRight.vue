@@ -1,11 +1,15 @@
+<script setup>
+    const datas = defineProps(["toRightdatas"])
+    // console.log(datas.toRightdatas)
+</script>
 <template>
-    <div class="right_layout">
+    <div v-if="datas.toRightdatas" class="right_layout">
+        <PokedexMainRandomImg v-for="(value,index) in datas.toRightdatas" :data="value" class="img_layout" />
+        <!-- <PokedexMainRandomImg class="img_layout" />
         <PokedexMainRandomImg class="img_layout" />
         <PokedexMainRandomImg class="img_layout" />
         <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
+        <PokedexMainRandomImg class="img_layout" /> -->
     </div>
 </template>
 <style scoped>
@@ -21,7 +25,7 @@
     position:absolute;
     background-image:url("/random_bg.png");
     background-size:cover;
-    animation: fadeIn 3s ease-in-out forwards;
+    animation: fadeIn 6s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {

@@ -1,11 +1,10 @@
+<script setup>
+    const datas = defineProps(["toLeftdatas"])
+    // console.log(datas.toLeftdatas)
+</script>
 <template>
-    <div class="left_layout">
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
-        <PokedexMainRandomImg class="img_layout" />
+    <div v-if="datas.toLeftdatas" class="left_layout">
+        <PokedexMainRandomImg v-for="(value,index) in datas.toLeftdatas" :data="value" class="img_layout" />
     </div>
 </template>
 <style scoped>
@@ -20,7 +19,7 @@
     position:absolute;
     background-image:url("/random_bg.png");
     background-size:cover;
-    animation: fadeIn 3s ease-in-out forwards;
+    animation: fadeIn 6s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {
