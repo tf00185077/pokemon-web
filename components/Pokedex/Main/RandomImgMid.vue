@@ -18,7 +18,7 @@
     background-size:contain;
     background-repeat:no-repeat;
     background-position:center center;
-    animation: fadeIn 5s ease-in-out forwards;
+    animation: fadeIn 2s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {

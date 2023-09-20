@@ -36,7 +36,7 @@ watch(datas,()=>{
     /* height:100vh; */
     max-width:1200px;
     position:relative;
-    animation: fadeIn 4s ease-in-out forwards;
+    animation: fadeIn 2s ease-in-out forwards;
 }
 @keyframes fadeIn {
     from {
