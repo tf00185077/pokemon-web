@@ -96,7 +96,11 @@ function rightDragging(e) {
           <p>屬性</p>
           <!-- <hr> -->
           <div class="type-choose-detail">
-            <div v-for="(item, key, index) in typeToEnglish" :class="item">
+            <div
+              v-for="(item, key, index) in typeToEnglish"
+              :class="item"
+              :key="index"
+            >
               {{ key }}
             </div>
           </div>
