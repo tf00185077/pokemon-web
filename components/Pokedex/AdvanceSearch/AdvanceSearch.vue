@@ -87,10 +87,10 @@ function rightDragging(e) {
 </script>
 <template>
   <div class="advance-search-layout">
-    <div class="advance-search-choose">
+    <div v-if="open" class="advance-search-choose">
       <p @click="open = !open">進階搜索</p>
     </div>
-    <div class="advance-search-choose-open">
+    <div v-else class="advance-search-choose-open">
       <div class="first-choose-layout">
         <div class="type-choose-layout">
           <p>屬性</p>
