@@ -1,16 +1,36 @@
 <script setup>
 const number = ref(8); //定義一開始要出現幾張
 const showDataArray=ref([]); //定義要出現的資料的陣列
-const datas = defineProps(['data']) //接收到的資料
-const dataDetail = datas.data
-showDataArray.value = dataDetail.slice(0,number.value) //將接收到的資料取出特定數量給要顯示的陣列
+const datas = defineProps(['data','itemsFilter']) //接收到的資料
+console.log(datas.itemsFilter)
+const dataDetail = ref(datas.data)
+const dataFilter = ref(datas.itemsFilter)
+showDataArray.value = dataDetail.value.slice(0,number.value) //將接收到的資料取出特定數量給要顯示的陣列
 watch(number,()=>{ //顯示更多圖片
-    showDataArray.value = dataDetail.slice(0,number.value)
+    showDataArray.value = dataDetail.value.slice(0,number.value)
+})
+watchEffect(() => {
+    dataFilter.value = datas.itemsFilter;
+    if (dataFilter.value.length !== 0) {
+        dataDetail.value=datas.data //重新拿全部資料篩選
+        dataDetail.value = dataDetail.value.filter((item) => {
+            let checkType = item.types.split('\n').filter((item) => item.trim() !== ''); // 所有怪物的屬性整理成陣列
+            // 使用 some 函数来检查 checkType 是否包含 dataFilter.value[0] 中的任何一个元素
+            return dataFilter.value[0].some((type) => checkType.includes(type));
+        });
+        showDataArray.value = dataDetail.value.slice(0,number.value)
+        // console.log(showDataArray.value)
+    }
+});
+watch(dataDetail,()=>{
+    console.log("TEHISSS")
+},{
+    deep:true
 })
 </script>
 <template>
     <div class="list-layout  " v-if="datas">
-        <PokedexListPokeData v-for="(value,index) in showDataArray" :datas="value"></PokedexListPokeData>
+        <PokedexListPokeData v-for="(value,index) in showDataArray" :datas="value" :key="index"></PokedexListPokeData>
     </div>
     <button @click="number+=16">顯示更多</button>
 </template>

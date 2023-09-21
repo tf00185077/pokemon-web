@@ -1,21 +1,26 @@
 <script setup>
-import { ref, onMounted } from 'vue'
 const datas = ref()
+const itemsFromChild = ref([])
 onMounted(async () => {
   datas.value = await usePokeDataJson()
 });
 watch(datas,()=>{
     
 })
+function handleEmitFromChild(data){
+  // console.log(data,"fromChild")
+  itemsFromChild.value = data
+  // console.log(itemsFromChild.value,"From Chils")
+}
 </script>
 <template>
     <div  v-if="datas" :data="datas" class="index-layout">
         <PokedexMain :data=datas></PokedexMain>
         <!-- 最上面隨機顯示圖片和名稱搜尋 -->
         <div class="  quiz"><img src="/bnr_quiz.png" /></div>
-        <PokedexAdvanceSearch :data=datas></PokedexAdvanceSearch>
+        <PokedexAdvanceSearch :data=datas @emitToParent="handleEmitFromChild"></PokedexAdvanceSearch>
         <!-- 進階搜索 -->
-        <PokedexList :data=datas></PokedexList>
+        <PokedexList :data=datas :itemsFilter=itemsFromChild></PokedexList>
          <!-- 寶可夢資料List -->
     </div>
     <div v-else class="data-loading-layout">

@@ -11,17 +11,31 @@ const maxTranslate = ref(0); //拉條最大值要移動多少X距離
 const dexMinValue = ref(1); //圖鑑搜尋拉條最小值的球
 const dexMaxValue = ref(1001); //圖鑑搜尋拉條最大值的球
 const boxDistance = ref(0); //容器寬度
+const choosedItems = ref({})//被選中的屬性
+const emitItems=ref([])
+const emit = defineEmits(['emitToParent'])
+function emitToParent(data){
+    console.log(data)
+    emit('emitToParent',data)
+}
+watch([choosedItems,dexMinValue,dexMaxValue], (newValue) => {
+  // choosedItems.value 更改时，更新 emitItems
+  emitItems.value = [[...Object.keys(choosedItems.value)], {minNum:dexMinValue.value, maxNum:dexMaxValue.value}];
+//   console.log(emitItems.value)
+},{
+    deep:true
+});
 function startDrag(e) {
   //開始拖拉
   canDrag.value = true;
   initialmouseX.value = e.clientX; //紀錄滑鼠初始位置
-  console.log("START");
-  console.log(initialmouseX.value, "initialmouseX.value");
+//   console.log("START");
+//   console.log(initialmouseX.value, "initialmouseX.value");
 }
 function stopDrag(e) {
   //停止拖拉
   canDrag.value = false;
-  console.log("STOP");
+//   console.log("STOP");
   initialmouseX.value = e.clientX;
 }
 function leftDragging(e) {
@@ -31,7 +45,7 @@ function leftDragging(e) {
       .getElementById("dex-num-bar-layout")
       .getBoundingClientRect();
     boxDistance.value = boxSize.right - boxSize.left; //用右邊邊界-左邊邊界得到長度
-    console.log(boxDistance.value, "boxDistance.value"); //得到結果353
+    // console.log(boxDistance.value, "boxDistance.value"); //得到結果353
     // dexMaxValue.value = document.getElementById('dex-num-max').getBoundingClientRect().right//得到最大值的X座標
     // console.log(dexMaxValue.value); //得到結果952
     const everyScaleValue = boxDistance.value / 1001; //有1001隻怪獸，將長度比例算出來
@@ -40,14 +54,14 @@ function leftDragging(e) {
     if (dexMinValue.value < dexMaxValue.value) {
       //可拖動狀態且最小值不得超過最大值的情況才可拖動
       const howLong = e.clientX - initialmouseX.value; //計算移動多長距離
-      console.log(e.clientX, "e.clientX");
-      console.log(initialmouseX.value, "initialmouseX.value");
-      console.log(howLong, "howLong");
+    //   console.log(e.clientX, "e.clientX");
+    //   console.log(initialmouseX.value, "initialmouseX.value");
+    //   console.log(howLong, "howLong");
       minTranslate.value = (howLong / boxDistance.value) * 100; //用容器總長度和移動的比例推算最小值的球要移動多少
-      console.log(
-        (howLong / boxDistance.value) * 100,
-        "howLong / boxDistance.value"
-      );
+    //   console.log(
+    //     (howLong / boxDistance.value) * 100,
+    //     "howLong / boxDistance.value"
+    //   );
       initialBall.value = Math.floor(howLong / everyScaleValue);
       minTranslate.value = Math.max(0, Math.min(minTranslate.value, 100));
       dexMinValue.value = Math.floor((1001 / 100) * minTranslate.value);
@@ -61,7 +75,7 @@ function rightDragging(e) {
       .getElementById("dex-num-bar-layout")
       .getBoundingClientRect();
     boxDistance.value = boxSize.right - boxSize.left; //用右邊邊界-左邊邊界得到長度
-    console.log(boxDistance.value, "boxDistance.value"); //得到結果353
+    // console.log(boxDistance.value, "boxDistance.value"); //得到結果353
     // dexMaxValue.value = document.getElementById('dex-num-max').getBoundingClientRect().left//得到最小值的X座標
     // console.log(dexMaxValue.value); //得到結果952
     const everyScaleValue = boxDistance.value / 1001; //有1001隻怪獸，將長度比例算出來
@@ -70,19 +84,23 @@ function rightDragging(e) {
     if (dexMaxValue.value > dexMinValue.value) {
       //可拖動狀態且最小值不得超過最大值的情況才可拖動
       const howLong = initialmouseX.value - e.clientX; //計算移動多長距離
-      console.log(e.clientX, "e.clientX");
-      console.log(initialmouseX.value, "initialmouseX.value");
-      console.log(howLong, "howLong");
+    //   console.log(e.clientX, "e.clientX");
+    //   console.log(initialmouseX.value, "initialmouseX.value");
+    //   console.log(howLong, "howLong");
       maxTranslate.value = (howLong / boxDistance.value) * 100; //用容器總長度和移動的比例推算最小值的球要移動多少
-      console.log(
-        (howLong / boxDistance.value) * 100,
-        "howLong / boxDistance.value"
-      );
+    //   console.log(
+    //     (howLong / boxDistance.value) * 100,
+    //     "howLong / boxDistance.value"
+    //   );
       endBall.value = Math.floor(howLong / everyScaleValue);
       maxTranslate.value = Math.max(0, Math.min(maxTranslate.value, 100));
       dexMaxValue.value = 1000 - Math.floor((1001 / 100) * maxTranslate.value);
     }
   }
+}
+function chooseOrNot(key){
+    choosedItems.value[key] = !choosedItems.value[key]
+    // console.log(Object.keys(choosedItems.value))
 }
 </script>
 <template>
@@ -98,8 +116,11 @@ function rightDragging(e) {
           <div class="type-choose-detail">
             <div
               v-for="(item, key, index) in typeToEnglish"
-              :class="item"
+              :class="[item,choosedItems[key] ? 'choosed' : '']"
+              @click='chooseOrNot(key)'
               :key="index"
+              class="type-choose"
+              
             >
               {{ key }}
             </div>
@@ -110,9 +131,9 @@ function rightDragging(e) {
             <div class="ability-choose">特性</div>
             <select class="ability-choose-detail" value="所有">
               <option selected disabled>尚未選擇</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+              <option>靜電</option>
+              <option>猛火</option>
+              <option>儲水</option>
             </select>
           </div>
           <div class="dex-num-layout">
@@ -144,20 +165,20 @@ function rightDragging(e) {
       <div class="second-choose-layout">
         <div class="region">地區</div>
         <div class="region-choose-layout">
-          <div>關都地區</div>
-          <div>城都地區</div>
-          <div>豐緣地區</div>
-          <div>神奧地區</div>
-          <div>合眾地區</div>
-          <div>卡洛斯地區</div>
-          <div>阿羅拉地區</div>
-          <div>伽勒爾地區</div>
-          <div>洗翠地區</div>
-          <div>帕底亞地區</div>
+          <div @click="chooseOrNot('關都地區')" :class="choosedItems['關都地區']? 'choosed':''">關都地區</div>
+          <div @click="chooseOrNot('城都地區')" :class="choosedItems['城都地區']? 'choosed':''">城都地區</div>
+          <div @click="chooseOrNot('豐緣地區')" :class="choosedItems['豐緣地區']? 'choosed':''">豐緣地區</div>
+          <div @click="chooseOrNot('神奧地區')" :class="choosedItems['神奧地區']? 'choosed':''">神奧地區</div>
+          <div @click="chooseOrNot('合眾地區')" :class="choosedItems['合眾地區']? 'choosed':''">合眾地區</div>
+          <div @click="chooseOrNot('卡洛斯地區')" :class="choosedItems['卡洛斯地區']? 'choosed':''">卡洛斯地區</div>
+          <div @click="chooseOrNot('阿羅拉地區')" :class="choosedItems['阿羅拉地區']? 'choosed':''">阿羅拉地區</div>
+          <div @click="chooseOrNot('伽勒爾地區')" :class="choosedItems['伽勒爾地區']? 'choosed':''">伽勒爾地區</div>
+          <div @click="chooseOrNot('洗翠地區')" :class="choosedItems['洗翠地區']? 'choosed':''">洗翠地區</div>
+          <div @click="chooseOrNot('帕底亞地區')" :class="choosedItems['帕底亞地區']? 'choosed':''">帕底亞地區</div>
         </div>
         <div class="reset-and-search-layout">
-          <button class="reset-button">重置</button>
-          <button class="search-button">搜尋</button>
+          <button @click="choosedItems={},dexMaxValue=1001,dexMinValue=1,maxTranslate=0,minTranslate=0" class="reset-button">重置</button>
+          <button class="search-button" @click="emitToParent(emitItems)">搜尋</button>
         </div>
       </div>
       <p @click="open = !open" class="hide-advance-search">隱藏進階搜索</p>
@@ -259,6 +280,21 @@ function rightDragging(e) {
   font-size: 10px;
   margin-bottom: 10px;
 }
+.type-choose{
+    box-shadow:inset -5px -5px rgba(128, 128, 128, 0.4)
+}
+.type-choose:hover{
+    box-shadow:0px 0px 4px white,0px 0px 4px white;
+    transform:scale(1.1)
+}
+.type-choose:hover:active,
+.type-choose.choosed{
+    background-color: transparent;
+    border:1px solid white;
+    transform:scale(1.1);
+    border:none;
+    box-shadow:0px 0px 4px white,0px 0px 4px white;
+}
 .ability-choose-layout {
   flex: 1;
   display: flex;
@@ -351,9 +387,21 @@ function rightDragging(e) {
 .region-choose-layout > div {
   width: calc(100% / 6 - 10px);
   border-radius: 50px;
-  padding: 0 10px;
+  padding: 3px 10px;
   border: 1px solid white;
   cursor: pointer;
+  background:rgb(59, 128, 32);
+  text-align: center;
+}
+.region-choose-layout > div:hover{
+    box-shadow:0px 0px 4px white,0px 0px 4px white;
+}
+.region-choose-layout > div:active,
+.region-choose-layout > div.choosed{
+    background-color: transparent;
+    border:1px solid white;
+    border:none;
+    box-shadow:0px 0px 4px white,0px 0px 4px white;
 }
 .reset-and-search-layout {
   display: flex;

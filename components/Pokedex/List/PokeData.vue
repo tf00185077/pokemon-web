@@ -1,12 +1,12 @@
 <script setup>
 const datas = defineProps(['datas'])
-const dataDetail = datas.datas
+const dataDetail = ref(datas.datas)
 // console.log(dataDetail)
-const toWhere = `/pokedex/${dataDetail.num}`
-const pokeImg = dataDetail.image
-const pokeNum = dataDetail.num
-const pokeName = dataDetail.name
-const pokeTypes = dataDetail.types
+const toWhere = `/pokedex/${dataDetail.value.num}`
+const pokeImg = dataDetail.value.image
+const pokeNum = dataDetail.value.num
+const pokeName = dataDetail.value.name
+const pokeTypes = dataDetail.value.types
 const pokeTypeArray = pokeTypes.split('\n').filter(item=>item.trim() !== '') //將複數屬性整理成陣列
 // console.log(pokeTypeArray)
 const chineseToEnglish = useTypeToEnglish()

@@ -9,7 +9,7 @@ const props = defineProps(['data'])
         </NuxtLink>
     </div>
     <PokedexMainRandomImgLayout :data="props.data"></PokedexMainRandomImgLayout><!--隨機顯示圖片-->
-    <PokedexMainPokeSearch :data="props.data"></PokedexMainPokeSearch>
+    <PokedexMainPokeSearch :data="props.data"></PokedexMainPokeSearch> <!--使用名稱或編號搜尋-->
 </template>
 <style scoped>
 *{

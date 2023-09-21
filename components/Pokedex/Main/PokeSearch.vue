@@ -1,12 +1,31 @@
-<template>
-    <div class="  search_layout">
+<script setup>
+const number = ref('003');
+const router = useRouter()
+function toLink(){
+    router.push(`/pokedex/${number.value}`)
+}
+function handleKeyPress(event) {
+    event.preventDefault()
+  if (event.key == 'Enter') {
+    toLink();
+  }
+}
+onMounted(()=>{
+    window.addEventListener('keydown',handleKeyPress)
+})
+onBeforeUnmount(()=>{
+    window.removeEventListener('keydown',handleKeyPress)
+})
+</script>
+<template >
+    <div class="search_layout">
         <p class="use-name-search">使用名稱或圖鑑編號搜索</p>
         <div class="search-input-layout">
             <div class="search-input">
-                <input placeholder="123456" class="number-name-input"/>
-                <div class="search-icon"><img src="/icon_magnifying_glass.png"/></div>
+                <input v-model="number" class="number-name-input"/>
+                <div class="search-icon" @click="toLink"><img src="/icon_magnifying_glass.png"/></div>
             </div>
-            <div class="random-appear">隨機顯示</div>
+            <div class="random-appear" >隨機顯示</div>
         </div>
     </div>
 </template>
@@ -49,6 +68,12 @@
     align-items:center;
     justify-content:center;
     cursor:pointer;
+}
+.search-icon:hover img{
+transform: scale(1.2);
+}
+.search-icon:active{
+    box-shadow: inset 2px 2px 2px gray,inset -2px -2px 2px gray;
 }
 .search-icon img{
     width:30%;
