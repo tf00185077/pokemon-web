@@ -235,7 +235,7 @@ function chooseOrNot(key){
   font-weight: 600;
 }
 .advance-search-choose-open {
-  background-image: url("advance_search_open_bg.png");
+  background-image: url("/advance_search_open_bg.png");
   background-position: top center;
   background-repeat: no-repeat;
   background-size: contain;
