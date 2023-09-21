@@ -27,24 +27,44 @@ function leftDragging(e){//最小值的拖拉
         const boxSize = document.getElementById('dex-num-bar-layout').getBoundingClientRect()
         boxDistance.value = boxSize.right-boxSize.left;//用右邊邊界-左邊邊界得到長度
         console.log(boxDistance.value,'boxDistance.value') //得到結果353
-        dexMaxValue.value = document.getElementById('dex-num-max').getBoundingClientRect().right//得到最大值的X座標
+        // dexMaxValue.value = document.getElementById('dex-num-max').getBoundingClientRect().right//得到最大值的X座標
         // console.log(dexMaxValue.value); //得到結果952
         const everyScaleValue = boxDistance.value / 1001 //有1001隻怪獸，將長度比例算出來
         // console.log(everyScaleValue) //得到結果0.35->每0.35代表一隻怪
         const canMoveDistance = dexMaxValue.value - dexMinValue.value //計算可移動X距離?需要嗎?
         if(dexMinValue.value < dexMaxValue.value){ //可拖動狀態且最小值不得超過最大值的情況才可拖動
-            const howLong = e.clientX-initialmouseX.value //計算移動多長距離
+            const howLong = e.clientX - initialmouseX.value  //計算移動多長距離
             console.log(e.clientX,'e.clientX')
             console.log(initialmouseX.value,'initialmouseX.value')
             console.log(howLong,'howLong')
-            minTranslate.value += ( ( howLong / boxDistance.value)*100) //用容器總長度和移動的比例推算最小值的球要移動多少
+            minTranslate.value = ( ( howLong / boxDistance.value)*100) //用容器總長度和移動的比例推算最小值的球要移動多少
             console.log(( howLong / boxDistance.value)*100,"howLong / boxDistance.value") 
             initialBall.value = Math.floor(howLong/everyScaleValue)
-            // console.log("ACCESS")
-            // console.log(howLong,'howLong')
-            // console.log(boxDistance.value,'boxDistance.value')
-            // console.log(minTranslate.value,"minTranslate.value")
-            // console.log(initialBall.value,"initialBall.value")
+            minTranslate.value = Math.max(0, Math.min(minTranslate.value, 100));
+            dexMinValue.value = Math.floor((1001 / 100 * minTranslate.value))
+        }
+    }
+}
+function rightDragging(e){//最小值的拖拉
+    if(canDrag.value == true){
+        const boxSize = document.getElementById('dex-num-bar-layout').getBoundingClientRect()
+        boxDistance.value = boxSize.right-boxSize.left;//用右邊邊界-左邊邊界得到長度
+        console.log(boxDistance.value,'boxDistance.value') //得到結果353
+        // dexMaxValue.value = document.getElementById('dex-num-max').getBoundingClientRect().left//得到最小值的X座標
+        // console.log(dexMaxValue.value); //得到結果952
+        const everyScaleValue = boxDistance.value / 1001 //有1001隻怪獸，將長度比例算出來
+        // console.log(everyScaleValue) //得到結果0.35->每0.35代表一隻怪
+        const canMoveDistance = dexMaxValue.value - dexMinValue.value //計算可移動X距離?需要嗎?
+        if(dexMaxValue.value > dexMinValue.value){ //可拖動狀態且最小值不得超過最大值的情況才可拖動
+            const howLong = initialmouseX.value - e.clientX //計算移動多長距離
+            console.log(e.clientX,'e.clientX')
+            console.log(initialmouseX.value,'initialmouseX.value')
+            console.log(howLong,'howLong')
+            maxTranslate.value = ( ( howLong / boxDistance.value)*100) //用容器總長度和移動的比例推算最小值的球要移動多少
+            console.log(( howLong / boxDistance.value)*100,"howLong / boxDistance.value") 
+            endBall.value = Math.floor(howLong/everyScaleValue)
+            maxTranslate.value = Math.max(0, Math.min(minTranslate.value, 100));
+            dexMaxValue.value = 1000 - Math.floor((1001 / 100 * minTranslate.value))
         }
     }
 }
@@ -75,11 +95,11 @@ function leftDragging(e){//最小值的拖拉
                         </select>
                     </div>
                     <div class="dex-num-layout">
-                        <div class="dex-num">圖鑑編號 1-1000</div>
+                        <div class="dex-num">圖鑑編號 {{dexMinValue}}-1000</div>
                         <div class="dex-num-bar-layout" id="dex-num-bar-layout">
                             <div id="dex-num-bar" class="dex-num-bar"></div>
                             <div id="dex-num-min" :style="'left:' + minTranslate + '%'"  @mousedown="startDrag" @mouseup="stopDrag" @mousemove="leftDragging" class="dex-num-bar-initial"></div>
-                            <div id="dex-num-max" class="dex-num-bar-end"></div>
+                            <div id="dex-num-max" :style="'right:' + maxTranslate + '%'" class="dex-num-bar-end" @mousedown="startDrag" @mouseup="stopDrag"  @mousemove="rightDragging"></div>
                         </div>
                     </div>
                 </div> 
