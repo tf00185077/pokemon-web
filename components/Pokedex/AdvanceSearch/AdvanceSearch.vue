@@ -125,7 +125,7 @@ function chooseOrNot(key){
           <div class="type-choose-detail">
             <div
               v-for="(item, key, index) in typeToEnglish"
-              :class="[item,choosedItems[key] ? 'choosed' : '']"
+              :class="[choosedItems[key] ? item : '',choosedItems[key] ? 'choosed' : '']"
               @click='chooseOrNot(key)'
               :key="index"
               class="type-choose"
@@ -290,19 +290,10 @@ function chooseOrNot(key){
   margin-bottom: 10px;
 }
 .type-choose{
-    box-shadow:inset -5px -5px rgba(128, 128, 128, 0.4)
+  box-shadow:0px 0px 3px #466e9b,0px 0px 3px #466e9b,0px 0px 3px #466e9b
 }
 .type-choose:hover{
-    box-shadow:0px 0px 4px white,0px 0px 4px white;
     transform:scale(1.1)
-}
-.type-choose:hover:active,
-.type-choose.choosed{
-    background-color: transparent;
-    border:1px solid white;
-    transform:scale(1.1);
-    border:none;
-    box-shadow:0px 0px 4px white,0px 0px 4px white;
 }
 .ability-choose-layout {
   flex: 1;
