@@ -33,13 +33,15 @@
     box-sizing: border-box;
     font-size: 20px;
     height: 50px;
-    padding: 20px 50px;
     display: flex;
     align-items: center;
     box-shadow: 0 0 5px #b4ebff;
-    cursor: pointer;
     background-color: #b4ebff00;
     transition: 0.5s;
+}.pre-data a,
+.next-data a{
+    padding: 20px 50px;
+    cursor:pointer;
 }
 @keyframes boxShadowShine {
     0% {

@@ -58,16 +58,16 @@ function randomValue() {
           >{{ prePokemonNumber }} {{ prePokemonData.name }}</NuxtLink
         >
       </div>
-      <div class="pre-data" v-else style="opacity: 0; cursor: default">
-        <NuxtLink></NuxtLink>
+      <div class="pre-data" v-else style="opacity: 0">
+        <NuxtLink style="cursor:default"></NuxtLink>
       </div>
       <div class="next-data" v-if="nextPokemonNumber <= '807'">
         <NuxtLink :to="'/pokedex/' + nextPokemonNumber"
           >{{ nextPokemonNumber }} {{ nextPokemonData.name }}</NuxtLink
         >
       </div>
-      <div class="next-data" v-else style="opacity: 0; cursor: default">
-        <NuxtLink></NuxtLink>
+      <div class="next-data" v-else style="opacity: 0;">
+        <NuxtLink style="cursor:default"></NuxtLink>
       </div>
     </div>
     <div class="poke-data-layout">
