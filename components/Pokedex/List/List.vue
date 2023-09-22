@@ -21,7 +21,7 @@ watchEffect(() => {
 
 <template>
     <div class="list-layout  " v-if="datas">
-        <PokedexListPokeData v-for="(value,index) in dataDetail.slice(0,number)" :datas="value" :key="index"></PokedexListPokeData>
+        <PokedexListPokeData v-for="(value,index) in dataDetail.slice(0,number)" :datas="value" :key="value.name"></PokedexListPokeData>
     </div>
     <button @click="number+=16">顯示更多</button>
 </template>

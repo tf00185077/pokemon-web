@@ -1,65 +1,132 @@
 <script setup>
-const router = useRouter()
+const route = useRoute();
+const powerEffect = ref(false);
+const datas = ref([])
+const data = ref([])
+const nextPokemonNumber = ref()
+const prePokemonNumber = ref()
+const nextPokemonData = ref()
+const prePokemonData = ref()
+const chineseToEnglish = useTypeToEnglish()
+let types
+onMounted(async()=>{
+    datas.value = await usePokeDataJson()
+    data.value = datas.value.filter(items=>items.num == route.params.id)[0]
+    nextPokemonNumber.value = (Number(data.value.num)+1).toString().padStart(3,'0')
+    prePokemonNumber.value = (Number(data.value.num)-1).toString().padStart(3,'0')
+    nextPokemonData.value = datas.value.filter(items=>items.num==nextPokemonNumber.value)[0]
+    prePokemonData.value = datas.value.filter(items=>items.num==prePokemonNumber.value)[0]
+    // console.log(data.value.types)
+    let pokeTypes = data.value.types;
+    types = pokeTypes.split('\n').filter(item=>item.trim() !== '')
+    setTimeout(()=>{
+        powerEffect.value = true
+    },500)
+})
+function randomValue(){
+    return (Math.random() * (100 - 1) + 1).toFixed(2);
+}
 </script>
 <template>
+    <div v-if="prePokemonData" class="data-page-layout">
         <div class="  main-head">
             <NuxtLink to="/pokedex">
                 <span>寶可夢圖鑑</span>
             </NuxtLink>
         </div>
         <div class="next-pre-layout">
-            <div class="pre-data">&lt; 009噴火龍</div>
-            <div class="next-data">008噴水龍 &gt;</div>
+            <div class="pre-data"><NuxtLink :to="'/pokedex/'+prePokemonNumber">{{ prePokemonNumber }} {{ prePokemonData.name }}</NuxtLink></div>
+            <div class="next-data"><NuxtLink :to="'/pokedex/'+nextPokemonNumber">{{nextPokemonNumber}} {{nextPokemonData.name}}</NuxtLink></div>
         </div>
         <div class="poke-data-layout">
             <div class="poke-effectness-layout">
-                <div>
-                    <div>屬性</div>
-                    <div>水</div>
+                <div class="self-type-layout">
+                    <p>屬性</p>
+                    <div class="self-type-name">
+                        <div v-for="(value,index) in types" :key="prePokemonData.name+value" :class="[chineseToEnglish[value]]">{{ value }}</div>
+                        <!-- <div class="grass">草</div> -->
+                    </div>
                 </div>
-                <div>
-                    <div>弱點</div>
-                    <div>電</div>
+                <div class="effect-type-layout">
+                    <p>弱點</p>
+                    <div class="effect-type-name">
+                        <div class="electric">電</div>
+                        <div class="psychic">超能力</div>
+                    </div>
                 </div>
             </div>
             <div class="poke-img-name-layout">
-                <div>超級水箭龜</div>
-                <div><img src="https://tw.portal-pokemon.com/play/resources/pokedex/img/pm/00186af714a048895ba8116e71b08671c3cfb8f5.png"></div>
+                <div class="poke-name">{{data.name}}</div>
+                <div class="poke-img"><img :src="data.image"></div>
             </div>
             <div class="poke-detail-layout">
-                <div class="tall">
+                <div class="poke-detail">
                     <div>身高</div>
                     <div>180cm</div>
                 </div>
-                <div class="weight">
+                <div class="poke-detail">
                     <div>體重</div>
                     <div>180kg</div>
                 </div>
-                <div class="ability">
+                <div class="poke-detail">
                     <div>特性</div>
                     <div>怪力</div>
                 </div>
-                <div class="classify">
+                <div class="poke-detail">
                     <div>分類</div>
-                    <div>怪類</div>
+                    <div>水中類</div>
                 </div>
-                <div class="sexual">
+                <div class="poke-detail">
                     <div>性別</div>
-                    <div>公</div>
+                    <div>公/母</div>
                 </div>
             </div>
         </div>
         <div class="dex-text-layout">
-            <div class="dext-text">圖鑑介紹</div>
-            <div class="power-analysis">
-                <div>HP</div>
-                <div>攻擊</div>
-                <div>防禦</div>
-                <div>特攻</div>
-                <div>特防</div>
-                <div>速度</div>
+            <div class="dext-text">
+                <h2 class="dext-text-title">圖鑑介紹</h2>
+                <p class="dext-text-content">受到超極巨化之力影響而變得巨大的左鉗可以把任何東西都夾得粉碎。</p>
+            </div>
+            <div class="poke-power-analysis-layout">
+                <div class="poke-power-layout">
+                    <div>HP</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
+                <div class="poke-power-layout">
+                    <div>攻擊</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
+                <div class="poke-power-layout">
+                    <div>防禦</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
+                <div class="poke-power-layout">
+                    <div>特攻</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
+                <div class="poke-power-layout">
+                    <div>特防</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
+                <div class="poke-power-layout">
+                    <div>速度</div>
+                    <div class="poke-power-value">
+                        <div :style="{ width: powerEffect ? randomValue()+'%' : '' }"></div>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
 </template>
 <style scoped>
 @import url('~/assets/css/pokemonData.module.css');

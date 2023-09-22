@@ -1,5 +1,16 @@
-div{
-    color:white
+*{
+    z-index:1;
+    text-decoration: none;
+    color:white;
+}
+.data-page-layout{
+    background-image: url('/list_bg.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:relative;
+    overflow: hidden;
+    height:100vh;
 }
 .main-head{
     height:100px;
@@ -21,42 +32,173 @@ div{
     box-sizing: border-box;
     font-size:20px;
     height:50px;
-    padding:20px 100px;
+    padding:20px 50px;
     display:flex;
     align-items: center;
-    /* justify-content: center; */
+    box-shadow:0 0 5px #b4ebff;
+    cursor:pointer;
+    background-color: #b4ebff00;
+    transition:.5s;
+}
+@keyframes boxShadowShine{
+    0%{
+        box-shadow:0 0 5px #b4ebff;
+    }50%{
+        box-shadow:0 0 20px #b4ebff;
+    }100%{
+        box-shadow:0 0 5px #b4ebff;
+    }
+}
+.pre-data{
+    border-radius:0 10px 10px 0;
+}
+.next-data{
+    border-radius:10px 0px 0px 10px;
+}
+.pre-data:hover,.next-data:hover{
+    animation:boxShadowShine 2s infinite ease-in-out
 }
 .poke-data-layout{
     display:flex;
+    background-image: url('/random_bg.png');
+    background-position: center center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    position:relative;
+}
+.poke-data-layout::after{
+    position:absolute;
+    z-index:-1;
+    content:'';
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-image: url('/pokemon_bg.png');
+    background-position: center center;
+    background-size:contain;
+    background-repeat: no-repeat;
+    animation:rotate 2s linear infinite
+}
+@keyframes rotate {
+    0%{
+        transform:rotate(0deg)
+    }
+    100%{
+        transform:rotate(360deg)
+    }
 }
 .poke-effectness-layout{
     width:30%;
     text-align: center;
     font-size:24px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    /* align-items: center; */
+    margin-top:20px;
+    backdrop-filter:blur(5px);
+    box-shadow: 0 0 10px white;
+    border-radius: 0 5px 5px 0; 
+}
+.self-type-layout,
+.effect-type-layout{
+    width:100%;
+}
+.poke-effectness-layout p{
+    font-size: 24px;
+    font-weight:600;
+    margin:0;
+    text-shadow:0px 0px 1px rgba(255, 255, 255, 0.388);
+}
+.self-type-name,
+.effect-type-name{
+    width:100%;
+    display:flex;
+    justify-content: space-evenly;
+}
+.self-type-name>div,
+.effect-type-name>div{
+    font-size:18px;
+    padding:5px 20px;
+    width:30%;
+    border-radius: 50px;
+    box-shadow:0 0 5px #b4ebff
 }
 .poke-img-name-layout{
     flex:1;
     text-align:center;
 }
-.poke-img-name-layout img{
+.poke-name{
+    font-size:36px;
+    text-shadow: 0 0 5px #b4ebff;
+}
+.poke-img img{
     width:60%;
 }
 .poke-detail-layout{
+    margin-top:15px;
     width:30%;
     display:flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    align-items: center
+    align-items: center;
+    justify-content: center;
+    border-radius:5px;
+    box-shadow:0 0 5px white;
+    backdrop-filter:blur(5px);
+    padding:5px 20px;
 }
-.poke-detail-layout>div{
-    width:40%;
+.poke-detail{
+    box-sizing: border-box;
+    padding:10px 20px;
+    width:100%;
+    display:flex;
+    gap:20px;
+}
+.poke-detail>div{
+    font-size:20px;
 }
 .dex-text-layout{
     display:flex;
     justify-content: space-between;
+    margin-top:50px;
+    border-radius: 10px 10px 0 0;
+    border:1px solid white;
+    padding:20px;
 }
 .dext-text{
     width:30%;
+    padding:10px 20px;
 }
-.power-analysis{
+.dext-text-title{
+    background-image: linear-gradient(to right, #b4b8ff, rgba(0, 116, 217, 0), #7fdbff00);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 2px;
+}
+.poke-power-analysis-layout{
     width:50%;
+}
+.poke-power-layout{
+    display:flex;
+    flex-direction:column;
+    gap:5px
+}
+.poke-power-value{
+    display:flex;
+    gap:5px;
+    overflow: hidden;
+    /* width:100%; */
+    transition:1s;
+    position:relative;
+}
+.poke-power-value>div{
+    width:0%;
+    height:20px;
+    border-radius: 3px;;
+    border:1px solid white;
+    background-color: white;
+    align-self: flex-start;
+    transition:2s
 }
