@@ -1,6 +1,7 @@
 <script setup>
 const route = useRoute();
 const powerEffect = ref(false);
+const onMountedEnd = ref(false)
 const datas = ref([])
 const data = ref([])
 const nextPokemonNumber = ref()
@@ -19,8 +20,10 @@ onMounted(async()=>{
     // console.log(data.value.types)
     let pokeTypes = data.value.types;
     types = pokeTypes.split('\n').filter(item=>item.trim() !== '')
+    onMountedEnd.value = true
+    await nextTick();
     setTimeout(()=>{
-        powerEffect.value = true
+        powerEffect.value=true
     },500)
 })
 function randomValue(){
@@ -28,22 +31,28 @@ function randomValue(){
 }
 </script>
 <template>
-    <div v-if="prePokemonData" class="data-page-layout">
+    <div v-if="onMountedEnd==true" class="data-page-layout">
         <div class="  main-head">
             <NuxtLink to="/pokedex">
                 <span>寶可夢圖鑑</span>
             </NuxtLink>
         </div>
         <div class="next-pre-layout">
-            <div class="pre-data"><NuxtLink :to="'/pokedex/'+prePokemonNumber">{{ prePokemonNumber }} {{ prePokemonData.name }}</NuxtLink></div>
-            <div class="next-data"><NuxtLink :to="'/pokedex/'+nextPokemonNumber">{{nextPokemonNumber}} {{nextPokemonData.name}}</NuxtLink></div>
+            <div class="pre-data">
+                <NuxtLink v-if="prePokemonNumber != '000'" :to="'/pokedex/'+prePokemonNumber">{{ prePokemonNumber }} {{ prePokemonData.name }}</NuxtLink>
+                <NuxtLink v-else >尚無000</NuxtLink>
+            </div>
+            <div class="next-data">
+                <NuxtLink v-if="nextPokemonNumber <='807'" :to="'/pokedex/'+nextPokemonNumber">{{nextPokemonNumber}} {{nextPokemonData.name}}</NuxtLink>
+                <NuxtLink v-else>等待更新</NuxtLink>
+            </div>
         </div>
         <div class="poke-data-layout">
             <div class="poke-effectness-layout">
                 <div class="self-type-layout">
                     <p>屬性</p>
                     <div class="self-type-name">
-                        <div v-for="(value,index) in types" :key="prePokemonData.name+value" :class="[chineseToEnglish[value]]">{{ value }}</div>
+                        <div v-for="(value,index) in types" :key="data.name+value" :class="[chineseToEnglish[value]]">{{ value }}</div>
                         <!-- <div class="grass">草</div> -->
                     </div>
                 </div>
@@ -126,6 +135,9 @@ function randomValue(){
                 </div>
             </div>
         </div>
+    </div>
+    <div v-else class="still-loading">
+        <p>Loading</p>
     </div>
 </template>
 <style scoped>
