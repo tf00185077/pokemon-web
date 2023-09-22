@@ -17,6 +17,15 @@ const emit = defineEmits(['emitToParent'])
 function emitToParent(data){
     console.log(data)
     emit('emitToParent',data)
+    open.value=true
+    toDefault()
+}
+function toDefault(){
+  choosedItems.value={}
+  dexMaxValue.value=1001
+  dexMinValue.value=1
+  maxTranslate.value=0
+  minTranslate.value=0
 }
 watch([choosedItems,dexMinValue,dexMaxValue], (newValue) => {
   // choosedItems.value 更改时，更新 emitItems
@@ -177,7 +186,7 @@ function chooseOrNot(key){
           <div @click="chooseOrNot('帕底亞地區')" :class="choosedItems['帕底亞地區']? 'choosed':''">帕底亞地區</div>
         </div>
         <div class="reset-and-search-layout">
-          <button @click="choosedItems={},dexMaxValue=1001,dexMinValue=1,maxTranslate=0,minTranslate=0" class="reset-button">重置</button>
+          <button @click="toDefault" class="reset-button">重置</button>
           <button class="search-button" @click="emitToParent(emitItems)">搜尋</button>
         </div>
       </div>

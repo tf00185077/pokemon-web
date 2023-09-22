@@ -18,14 +18,12 @@ watchEffect(() => {
             // 使用 some 函数来检查 checkType 是否包含 dataFilter.value[0] 中的任何一个元素
             return dataFilter.value[0].some((type) => checkType.includes(type));
         });
-        showDataArray.value = dataDetail.value.slice(0,number.value)
         // console.log(showDataArray.value)
     }
 });
-watch(dataDetail,()=>{
-    console.log("TEHISSS")
-},{
-    deep:true
+watchEffect(()=>{
+    showDataArray.value = dataDetail.value.slice(0,number.value)
+
 })
 </script>
 <template>
