@@ -5,11 +5,6 @@ require("dotenv").config();
 //   try {
   // console.log(process.env.DB_HOST, "DB DATAAAAAAAAAAAAAA");
     const pool = mysql.createPool({
-      // host: "database-2.c366gw6m6xt2.us-east-1.rds.amazonaws.com", // RDS 实例的域名
-      // user: "admin",
-      // password: "00000000",
-      // database: "test_db",
-      // port: 3306,
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
