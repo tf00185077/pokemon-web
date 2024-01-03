@@ -8,7 +8,7 @@ import testApi from './testApi.js'
 // console.log(process.env.DB_HOST);
 const app = express();
 const port = process.env.PORT || 4000;
-const allowedOrigins = ["http://localhost:3333"];
+const allowedOrigins = ["http://localhost:3000"];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -22,5 +22,29 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+app.use(express.json()); 
 app.use("/api", testApi);
+
+app.post("/search", async (req, res) => {
+    try {
+        const { id } = req.body;
+        console.log('進到post' ,id)
+        
+    
+      
+        const sql = "INSERT INTO user (name) VALUES (?)";
+        connection.query(sql, [id], function (err, result) {
+            if (err) throw err;
+        
+            console.log("1 record inserted");
+            res.send("1 record inserted");
+        });
+        
+
+    } catch (error) {
+        // console.error('Error occurred:', error);
+        // res.status(500).send('An error occurred');
+    }
+});
+
 app.listen(port, () => console.log(`listening at ${port} . 開啟監聽`));

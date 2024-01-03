@@ -1,4 +1,5 @@
 <script setup>
+const user = ref([])
 async function fetchData() {
   try {
     const res = await fetch('http://localhost:4000/api/search')
@@ -7,17 +8,89 @@ async function fetchData() {
     }
     const data = await res.json(); // 假设响应是JSON格式
     // console.log(data)
+    user.value = data
     return data
   } catch(error) {
      console.error("Error fetching data: ", error);
   }
 }
-let test = await fetchData()
-console.log(test)
+const postData = async () => {
+  try {
+    const res = await fetch('http://localhost:4000/api/search', {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ id: nameInput.value }) 
+    });
+    
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json(); // 假設響應是JSON格式
+    if(data.result === 'success'){
+        fetchData()
+    }
+    console.log(data, 'data')
+    return data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  }
+}
+const handlePost = () => {
+
+    postData();
+}
+const nameInput = ref("Hi")
+onMounted(async()=>{
+    fetchData()
+})
+const deleteHandler = async(userData) =>{
+    console.log('有進到delete')
+    try {
+    const res = await fetch(`http://localhost:4000/api/search/${userData.id}`, {
+      method: "DELETE",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    //   body: JSON.stringify({ id: userData.id }) 
+    });
+    
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json(); // 假設響應是JSON格式
+    console.log(data)
+    if(data.result === 'success' ){
+        fetchData()
+    }   
+    return data;
+  } catch (error) {
+    console.error("Error fetching data: ", error);
+  } 
+}
+// let test = await fetchData()
+// console.log(test)
 </script>
 <template>
     <div class="home-layout">
-        <p>頁面尚未完成，請轉至圖鑑頁</p>
+        <!-- <p>頁面尚未完成，請轉至圖鑑頁</p> -->
+
+        <input v-model="nameInput">
+
+        <button @click="handlePost">我按鈕在哪</button>
+        <template v-if="user.length!=0">
+            <div id="user">
+
+                <p v-for="(userData,userIndex) in user" @click="deleteHandler(userData)">{{userData.id}}.{{ userData.name }}</p>
+            </div>
+        </template>
     </div>
 </template>
 <style scoped>
@@ -36,12 +109,13 @@ console.log(test)
     position:absolute;
     top:50%;
     left:50%;
-    background-image: url("/pokemon_bg.png");
+    /* background-image: url("/pokemon_bg.png"); */
+    background-color: white;
     background-position: center center;
     background-size: contain;
     background-repeat: no-repeat;
     transform: translate(-50%, -50%) rotate(0deg);
-    animation: rotate 2s linear infinite; 
+    /* animation: rotate 2s linear infinite;  */
     z-index:-1;
 }
 @keyframes rotate {
@@ -55,7 +129,7 @@ console.log(test)
 .home-layout p{
     font-size:48px;
     font-weight:600;
-    animation: opacity 1.5s infinite;
+    /* animation: opacity 1.5s infinite; */
 }
 @keyframes opacity {
   0% {
@@ -67,5 +141,16 @@ console.log(test)
   100%{
     opacity:0
   }
+}
+#user{
+    display:flex;
+    gap:10px;
+    margin:0;
+    flex-direction: column;
+}
+#user p{
+    border:1px solid black;
+    padding:2px;
+    margin:0;
 }
 </style>
