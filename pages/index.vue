@@ -1,3 +1,20 @@
+<script setup>
+async function fetchData() {
+  try {
+    const res = await fetch('http://localhost:4000/api/search')
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`)
+    }
+    const data = await res.json(); // 假设响应是JSON格式
+    // console.log(data)
+    return data
+  } catch(error) {
+     console.error("Error fetching data: ", error);
+  }
+}
+let test = await fetchData()
+console.log(test)
+</script>
 <template>
     <div class="home-layout">
         <p>頁面尚未完成，請轉至圖鑑頁</p>
