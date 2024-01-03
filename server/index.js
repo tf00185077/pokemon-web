@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors"
 import pool from "./db.cjs"
 import testApi from './testApi.js'
+// require("dotenv").config();
+// import dotenv from 'dotenv'
+// dotenv.config();
+// console.log(process.env.DB_HOST);
 const app = express();
 const port = process.env.PORT || 4000;
 const allowedOrigins = ["http://localhost:3333"];
