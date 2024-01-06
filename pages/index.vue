@@ -44,6 +44,7 @@ const handlePost = () => {
 };
 const nameInput = ref("Hi");
 onMounted(async () => {
+  console.log(234);
   fetchData();
 });
 const deleteHandler = async (userData) => {

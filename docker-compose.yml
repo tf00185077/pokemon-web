@@ -1,0 +1,11 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - HOST=0.0.0.0
+    # 如果你需要持續開發，可以取消註釋下面兩行，它們將映射你的本地文件到容器中
+    # volumes:
+    #   - .:/app
