@@ -10,7 +10,7 @@
     background-size: cover;
     position: relative;
     overflow: hidden;
-    height: 100vh;
+    /* height: 100vh; */
 }
 .main-head {
     height: 100px;
@@ -38,10 +38,11 @@
     box-shadow: 0 0 5px #b4ebff;
     background-color: #b4ebff00;
     transition: 0.5s;
-}.pre-data a,
-.next-data a{
+}
+.pre-data a,
+.next-data a {
     padding: 20px 50px;
-    cursor:pointer;
+    cursor: pointer;
 }
 @keyframes boxShadowShine {
     0% {
