@@ -1,9 +1,9 @@
 const mysql = require("mysql2/promise");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config();
 // import { mysql2 } from 'mysql2/promise';
 // async function connectToDatabase() {
 //   try {
-// console.log(process.env.DB_HOST, "DB DATAAAAAAAAAAAAAA");
+console.log(process.env.DB_HOST, "DB DATAAAAAAAAAAAAAA");
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,

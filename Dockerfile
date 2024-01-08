@@ -21,6 +21,7 @@ RUN npm run build
 
 # 開放 8080 端口
 EXPOSE 3000
+EXPOSE 4000
 # ENV HOST 0.0.0.0
 # 啟動 Nuxt 服務
 # CMD ["node", ".output/server/index.mjs"]

@@ -1,10 +1,19 @@
 import express from "express";
 import cors from "cors";
 import testApi from "./testApi.js";
+// import dotenv from "dotenv";
+// import path from "path";
+// import { fileURLToPath } from "url";
+// import "dotenv/config.js";
+// dotenv.config({path:'../.env'});
+// dotenv.config({ path: `../.env` });
+import { config } from "dotenv";
+// config({path:'../.env'})
+config()
 const app = express();
-const port = process.env.PORT || 4000;
-const allowedOrigins = [process.env.NUXT_HOST];
-
+const port = process.env.API_PORT || 5000;
+const allowedOrigins = [process.env.NUXT_PORT, "http://127.0.0.1:3000"];
+console.log(process.env.NUXT_PORT,"FROM ENV");
 const corsOptions = {
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
