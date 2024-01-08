@@ -28,22 +28,21 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use("/api", testApi);
-
-app.post("/search", async (req, res) => {
+app.get("/test", async (req, res) => {
     try {
-        const { id } = req.body;
-        console.log("進到post", id);
+        //     const { id } = req.body;
+        //     console.log("進到post", id);
 
-        const sql = "INSERT INTO user (name) VALUES (?)";
-        connection.query(sql, [id], function (err, result) {
-            if (err) throw err;
+        //     const sql = "INSERT INTO user (name) VALUES (?)";
+        //     connection.query(sql, [id], function (err, result) {
+        //         if (err) throw err;
 
-            console.log("1 record inserted");
-            res.send("1 record inserted");
-        });
+        //         console.log("1 record inserted");
+        res.send("1 record inserted OKOKOKOKOKOKOKOKOK");
+        //     });
     } catch (error) {
         // console.error('Error occurred:', error);
-        // res.status(500).send('An error occurred');
+        res.status(500).send("An error occurred");
     }
 });
 

@@ -2,7 +2,7 @@
 const user = ref([]);
 async function fetchData() {
   try {
-    const res = await fetch("http://localhost:4000/api/search");
+    const res = await fetch("http://3.81.202.151:4000/api/search");
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -16,7 +16,7 @@ async function fetchData() {
 }
 const postData = async () => {
   try {
-    const res = await fetch("http://localhost:4000/api/search", {
+    const res = await fetch("http://3.81.202.151:4000/api/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,14 +50,17 @@ onMounted(async () => {
 const deleteHandler = async (userData) => {
   console.log("有進到delete");
   try {
-    const res = await fetch(`http://localhost:4000/api/search/${userData.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      //   body: JSON.stringify({ id: userData.id })
-    });
+    const res = await fetch(
+      `http://3.81.202.151:4000/api/search/${userData.id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        //   body: JSON.stringify({ id: userData.id })
+      }
+    );
 
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
