@@ -12,7 +12,7 @@ import { config } from "dotenv";
 config();
 const app = express();
 const port = process.env.API_PORT || 5000;
-const allowedOrigins = [process.env.NUXT_PORT, "http://127.0.0.1:3000"];
+const allowedOrigins = [process.env.NUXT_PORT, "http://3.81.202.151:3000"];
 console.log(process.env.NUXT_PORT, "FROM ENV");
 const corsOptions = {
     origin: function (origin, callback) {
